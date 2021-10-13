@@ -1,4 +1,6 @@
 del /S /Q build
+del /S /Q install
+del /S /Q package
 
 cmake -S . -B build -G Ninja ^
 -DCMAKE_BUILD_TYPE=Release ^
