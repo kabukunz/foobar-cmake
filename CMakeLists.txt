@@ -4,8 +4,16 @@ cmake_minimum_required(VERSION 2.8)
 
 cmake_policy(SET CMP0048 NEW)
 
+set(PROJECT_VERSION_MAJOR 1)
+set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_PATCH 0)
+set(PROJECT_VERSION_TWEAK 0)
+set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}.${PROJECT_VERSION_TWEAK})
+
+# project(foobar)
+
 project(foobar
-    VERSION 1.0.0.0
+    VERSION ${PROJECT_VERSION}
 )
 
 add_subdirectory(bar)
@@ -15,12 +23,14 @@ add_executable(foo foo/foo.cpp)
 target_link_libraries(foo bar)
 
 # set the product dir
-set(PRODUCT_DIR "/")
+set(DEPLOY_DIR "/")
 
 if(WIN32)
-    set(PRODUCT_DIR $ENV{APPDATA} CACHE STRING "PRODUCT DIR")
-    message(${PRODUCT_DIR})
+    set(DEPLOY_DIR $ENV{APPDATA} CACHE STRING "DEPLOY DIR")
+    message(${DEPLOY_DIR})
 endif()
+
+string(REPLACE "\\" "/" DEPLOY_DIR ${DEPLOY_DIR})
 
 # option for testing binaries in windows w/o installing them
 if(WIN32)
@@ -53,14 +63,6 @@ install(FILES bar/bar.h
 set(CPACK_GENERATOR NSIS)
 set(CPACK_PACKAGE_VENDOR "YourCom.com")
 set(CPACK_PACKAGE_DIRECTORY "${CMAKE_SOURCE_DIR}/package")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "foobar (CPack)")
-
-# set(CPACK_PACKAGE_VERSION "1.0.0")
-# set(CPACK_PACKAGE_VERSION_MAJOR "1")
-# set(CPACK_PACKAGE_VERSION_MINOR "0")
-# set(CPACK_PACKAGE_VERSION_PATCH "0")
-# set(CPACK_PACKAGE_INSTALL_DIRECTORY "C:/Users/kabukunz/Developer/Library/foobar-cmake/package/deploy")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PRODUCT_DIR})
 SET(CPACK_NSIS_MODIFY_PATH ON)
 
 INCLUDE(CPack)
