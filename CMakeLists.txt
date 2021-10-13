@@ -10,8 +10,6 @@ set(PROJECT_VERSION_PATCH 0)
 set(PROJECT_VERSION_TWEAK 0)
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}.${PROJECT_VERSION_TWEAK})
 
-# project(foobar)
-
 project(foobar
     VERSION ${PROJECT_VERSION}
 )
@@ -30,7 +28,7 @@ if(WIN32)
     message(${DEPLOY_DIR})
 endif()
 
-string(REPLACE "\\" "/" DEPLOY_DIR ${DEPLOY_DIR})
+# string(REPLACE "\\" "/" DEPLOY_DIR ${DEPLOY_DIR})
 
 # option for testing binaries in windows w/o installing them
 if(WIN32)
@@ -61,8 +59,9 @@ install(FILES bar/bar.h
     COMPONENT headers)
 
 set(CPACK_GENERATOR NSIS)
-set(CPACK_PACKAGE_VENDOR "YourCom.com")
+# set(CPACK_PACKAGE_VENDOR "YourCom.com")
 set(CPACK_PACKAGE_DIRECTORY "${CMAKE_SOURCE_DIR}/package")
-SET(CPACK_NSIS_MODIFY_PATH ON)
+set(CPACK_NSIS_MODIFY_PATH ON)
+set(CPACK_NSIS_INSTALL_ROOT ${DEPLOY_DIR})
 
 INCLUDE(CPack)
