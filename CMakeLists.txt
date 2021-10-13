@@ -28,8 +28,6 @@ if(WIN32)
     message(${DEPLOY_DIR})
 endif()
 
-# string(REPLACE "\\" "/" DEPLOY_DIR ${DEPLOY_DIR})
-
 # option for testing binaries in windows w/o installing them
 if(WIN32)
     option(DLL2BIN "Copy DLL into EXE dir on Windows" OFF)
@@ -58,7 +56,7 @@ install(FILES bar/bar.h
     DESTINATION include
     COMPONENT headers)
 
-set(CPACK_GENERATOR NSIS)
+set(CPACK_GENERATOR NSIS64)
 # set(CPACK_PACKAGE_VENDOR "YourCom.com")
 set(CPACK_PACKAGE_DIRECTORY "${CMAKE_SOURCE_DIR}/package")
 set(CPACK_NSIS_MODIFY_PATH ON)
